@@ -10,15 +10,13 @@ unzip("household_power_consumption.zip",exdir="Data")
 data <- read.table("Data/household_power_consumption.txt", header = TRUE, sep = ";", dec = ".",
                    colClasses=c("character","character",rep("numeric",7)),na.strings = "?")
 
-
 data <- filter(data, Date == "1/2/2007" | Date == "2/2/2007")
 
-hist(data$Global_active_power, col="red", 
-     main="Global Active Power",
-     xlab = "Global Active Power (kilowatts)",
-     ylim = c(0,1200),
-     xlim = c(0,6),
-     breaks = 12)
+data["Date"] <-  as.Date(data$Date,'%d/%m/%Y')
+temp <- paste(data$Date, data$Time)
+data$Time <- strptime(temp, format = "%Y-%m-%d %H:%M:%S")
 
-dev.copy(jpeg,filename="plot1.jpg")
+plot(x = data$Time, y = data$Global_active_power, type = "l", xlab = "", ylab = "Global Active Power (kilowatts)")
+
+dev.copy(jpeg,filename="plot2.jpg")
 dev.off()
