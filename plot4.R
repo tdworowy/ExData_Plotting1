@@ -18,7 +18,6 @@ data$Time <- strptime(temp, format = "%Y-%m-%d %H:%M:%S")
 
 par(mfrow = c(2,2))
 
-
 with(data,{
   plot(x = Time, y = Global_active_power, type = "l", xlab = "", ylab = "Global Avtive Power")
   plot(x = Time, y =Voltage, type = "l", xlab = "datatime", ylab = "Voltage")
